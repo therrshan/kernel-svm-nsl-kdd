@@ -1,0 +1,266 @@
+\documentclass[11pt]{article}
+
+\newcommand{\yournames}{Darshan Rajopadhye}
+\newcommand{\hwnum}{6}
+\newcommand{\hwdue}{Monday March 15, 2024 at 11:59 PM Eastern time}
+
+\def\comments{0}
+
+%format and packages
+
+%\usepackage{algorithm, algorithmic}
+\usepackage{algpseudocode}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{verbatim}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{microtype}
+\usepackage{kpfonts}
+\usepackage{palatino}
+	\DeclareMathAlphabet{\mathtt}{OT1}{cmtt}{m}{n}
+	\SetMathAlphabet{\mathtt}{bold}{OT1}{cmtt}{bx}{n}
+	\DeclareMathAlphabet{\mathsf}{OT1}{cmss}{m}{n}
+	\SetMathAlphabet{\mathsf}{bold}{OT1}{cmss}{bx}{n}
+	\renewcommand*\ttdefault{cmtt}
+	\renewcommand*\sfdefault{cmss}
+	\renewcommand{\baselinestretch}{1.05}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{DarkGreen}{rgb}{0.15,0.5,0.15}
+\definecolor{DarkRed}{rgb}{0.6,0.2,0.2}
+\definecolor{DarkBlue}{rgb}{0.2,0.2,0.6}
+\definecolor{DarkPurple}{rgb}{0.4,0.2,0.4}
+\usepackage[pdftex]{hyperref}
+\hypersetup{
+	linktocpage=true,
+	colorlinks=true,				% false: boxed links; true: colored links
+	linkcolor=DarkBlue,		% color of internal links
+	citecolor=DarkBlue,	% color of links to bibliography
+	urlcolor=DarkBlue,		% color of external links
+}
+
+\usepackage[boxruled,vlined,nofillcomment]{algorithm2e}
+	\SetKwProg{Fn}{Function}{\string:}{}
+	\SetKwFor{While}{While}{}{}
+	\SetKwFor{For}{For}{}{}
+	\SetKwIF{If}{ElseIf}{Else}{If}{:}{ElseIf}{Else}{:}
+	\SetKw{Return}{Return}
+	
+
+%enclosure macros
+\newcommand{\paren}[1]{\ensuremath{\left( {#1} \right)}}
+\newcommand{\bracket}[1]{\ensuremath{\left\{ {#1} \right\}}}
+\renewcommand{\sb}[1]{\ensuremath{\left[ {#1} \right\]}}
+\newcommand{\ab}[1]{\ensuremath{\left\langle {#1} \right\rangle}}
+
+%probability macros
+\newcommand{\ex}[2]{{\ifx&#1& \mathbb{E} \else \underset{#1}{\mathbb{E}} \fi \left[#2\right]}}
+\newcommand{\pr}[2]{{\ifx&#1& \mathbb{P} \else \underset{#1}{\mathbb{P}} \fi \left[#2\right]}}
+\newcommand{\var}[2]{{\ifx&#1& \mathrm{Var} \else \underset{#1}{\mathrm{Var}} \fi \left[#2\right]}}
+
+%useful CS macros
+\newcommand{\poly}{\mathrm{poly}}
+\newcommand{\polylog}{\mathrm{polylog}}
+\newcommand{\zo}{\{0,1\}}
+\newcommand{\pmo}{\{\pm1\}}
+\newcommand{\getsr}{\gets_{\mbox{\tiny R}}}
+\newcommand{\card}[1]{\left| #1 \right|}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\negl}{\mathrm{negl}}
+\newcommand{\eps}{\varepsilon}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\eqand}{\qquad \textrm{and} \qquad}
+\newcommand{\ind}[1]{\mathbb{I}\{#1\}}
+\newcommand{\sslash}{\ensuremath{\mathbin{/\mkern-3mu/}}}
+
+%info theory macros
+\newcommand{\SD}{\mathit{SD}}
+\newcommand{\sd}[2]{\SD\left( #1 , #2 \right)}
+\newcommand{\KL}{\mathit{KL}}
+\newcommand{\kl}[2]{\KL\left(#1 \| #2 \right)}
+\newcommand{\CS}{\ensuremath{\chi^2}}
+\newcommand{\cs}[2]{\CS\left(#1 \| #2 \right)}
+\newcommand{\MI}{\mathit{I}}
+\newcommand{\mi}[2]{\MI\left(~#1~;~#2~\right)}
+
+%mathbb
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+%mathcal
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+
+%theorem macros
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{clm}[thm]{Claim}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{coro}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{conj}[thm]{Conjecture}
+	\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+
+
+\newcommand{\instructor}{Paul Hand}
+\newcommand{\weeknum}{2}
+%\newcommand{\hwdue}{Monday 5/4/2019 at 12:00pm via \href{https://www.gradescope.com/courses/127111}{Gradescope}}
+
+\theoremstyle{theorem}
+\newtheorem{prob}{Problem}
+\newtheorem{sol}{Solution}
+\newtheorem{ques}{Question}
+\newtheorem{ans}{Answer}
+
+
+\definecolor{cit}{rgb}{0.05,0.2,0.45} 
+\newcommand{\solution}{\medskip\noindent{\color{DarkBlue}\textbf{Solution:}}}
+\newcommand{\response}{\medskip\noindent{\color{DarkBlue}\textbf{Response:}}}
+\newcommand{\red}[1]{ {\color{red}#1}}
+
+\begin{document}
+{\Large 
+\begin{center}CS 6140: Machine Learning --- Spring 2024--- \instructor \end{center}}
+{\large
+\vspace{10pt}
+\noindent Project Planning Document \vspace{2pt}\\
+Due: ~\hwdue \ via Gradescope}.
+
+\bigskip
+{\large
+\noindent Names: \yournames \vspace{2pt}}
+
+\vspace{15pt}
+
+\noindent 
+
+ For your final project, you will obtain a dataset, select multiple machine learning models, train the models, and evaluate the performance of the models.  You may elect to reproduce some of the results from a scientific paper, but you must code up some aspect of dataset, model, or training yourself.  You may use standard Deep Learning frameworks (e.g. PyTorch, TensorFlow, etc.).  You may use code that is available on the internet as building blocks.  You must train more than one machine learning model and compare the performance of those models.  You are encouraged (but are not required to) to learn about and train models that we have not discussed in class.
+ 
+ \textbf{THE FINAL PROJECT IS DUE at 11:59 PM on WEDNESDAY April 17, 2024 on Gradescope.}
+ 
+ 
+You will write up a short (at most 3 pages) report detailing: the dataset you are using and any data processing you have done, the models you are studying, the details of training the models, and the results of the evaluation.  Please use the \href{https://neurips.cc/Conferences/2023/PaperInformation/StyleFiles}{NeurIPS Style files} for your report.
+
+You may work in groups of up to 3 people.  You may work alone.
+
+If you want some ideas of projects, here are some ideas.  You do not need to select one of these papers.
+
+\begin{itemize}
+\item  Train several handwritten digit classifiers from the table at \href{http://yann.lecun.com/exdb/mnist/}{this website}.  
+\item Implement one of the chapters of the \href{https://www.manning.com/books/machine-learning-with-tensorflow-second-edition}{Mattmann book}.
+\item Find a Kaggle dataset that you find interesting and train multiple models for it.
+\item Collect data from your own life and train two predictors that you could use.  
+\item Train a neural network to remove additive noise from images.  You can construct a dataset consisting of clean images and noisy images that you construct.
+\item Create a synthetic dataset and evaluate the k-means and k-means++ algorithms.
+\item Learn about random forrests and compare them to one or more other methods on real or synthetic data.
+\item Learn about bootstrapping and compare it to one or more other methods on real or synthetic data.
+\item Create a synthetic dataset and evaluate how successful cross-validation is at estimating test error.
+\item Reproduce aspects of Figure 1 of \href{https://arxiv.org/abs/1611.03530}{Understanding Deep Learning Requires Rethinking Generalization}
+
+
+\end{itemize}
+
+
+\begin{ques} Project Planning
+\end{ques}
+\begin{enumerate}
+\item Provide a summary of the goal of your project.  If you are replicating part of a paper, include a link to the paper here.
+
+\response
+
+As computer networks expand rapidly and applications multiply, the imperative of network security intensifies. Vulnerabilities in systems persist, heightening the risk of detrimental attacks on the economy. Hence, the precise and immediate detection of system vulnerabilities within network packets becomes increasingly vital. This project undertakes a comprehensive investigation into the efficacy of Support Vector Machine models with diverse kernel functions, alongside advanced classification models such as Random Forest and XGBoost for the task of intrusion detection.
+
+By comparing different SVM kernels (linear, polynomial, RBF, sigmoid) and the advanced models, we aim to discern which approach offers the most effective detection of network intrusions. The project entails meticulous exploration of hyperparameter tuning, model complexity, and data intricacies, aiming to address challenges associated with training and evaluating classification models. Through a rigorous evaluation process encompassing various performance metrics and visualization techniques, we hope to unravel the strengths and limitations of each model, facilitating informed decision-making in real-world deployment scenarios.
+
+\item What dataset will you use?
+
+\response
+
+The NSL-KDD dataset serves as the foundation for the project, offering a comprehensive collection of network traffic data encompassing both normal and anomalous activities. This dataset is widely utilized in the field of intrusion detection for evaluating the performance of intrusion detection systems. It provides a diverse range of features, including protocol types, service types, source and destination IP addresses, duration of connections, and more. With labeled classification of network connections as either normal or anomalous, the NSL-KDD dataset enables supervised learning approaches for intrusion detection.
+
+\newpage
+\item What models will you train? You need to have more than one.
+
+\response
+
+Our project will involve training multiple classification models, including:
+
+\begin{itemize}
+	\item Support Vector Machine Models (From Scratch Implementations)
+	\begin{itemize}
+		\item Linear kernel
+		\item Polynomial kernel
+		\item RBF kernel
+		\item Sigmoid kernel
+	\end{itemize}
+	\item Advanced CLassification Models (SKLearn Models)
+	\begin{itemize}
+		\item XGBoost
+		\item Random Forest
+		\item Gradient Boosting Machines
+	\end{itemize}
+\end{itemize}
+
+
+
+\item What do you think will be most difficult about training the models?
+
+\response
+
+\begin{itemize}
+
+	\item Hyperparameter Tuning :
+	\item [] One of the primary challenges lies in optimizing the hyperparameters of each model, including the regularization parameter (C), degree (for polynomial kernel), gamma (for RBF kernel), and other kernel-specific parameters. Tuning these hyperparameters effectively requires careful experimentation and may involve extensive computational resources.
+
+	\item Data Imbalance and Complexity: 
+	\item [] The NSL-KDD dataset may exhibit class imbalance and contain complex relationships between features, which could impact the performance of the models. Thus thorough EDA must be performed before moving on to models to make sure the data is clean and ready to be modeled.
+	
+\end{itemize}
+
+
+\newpage
+\item How will you evaluate the models?
+
+\response
+
+\begin{itemize}
+
+	\item Performance Metrics : 
+	\item [] We will evaluate the models using a comprehensive set of performance metrics, including accuracy, precision, recall, F1-score, and ROC-AUC score. These metrics provide insights into different aspects of model performance, such as overall classification accuracy, ability to detect intrusions (sensitivity), and control over false alarms (specificity).
+	
+	\item Cross-Validation :
+	\item [] To ensure reliable model evaluation, we will employ cross-validation techniques such as GridSearch CV and Random Search. This approach helps estimate the models' generalization performance and mitigates the risk of overfitting to the training data.
+	
+	\item Visualizations :
+	\item [] In addition to numerical metrics, we will utilize visualization techniques such as ROC curves, precision-recall curves, and confusion matrices to gain deeper insights into the models' behavior and performance characteristics. Visualizations provide intuitive representations of the models' trade-offs between true positive and false positive rates, aiding in model selection and interpretation.
+\end{itemize}
+
+
+\end{enumerate}
+
+
+
+
+
+\end{document}
